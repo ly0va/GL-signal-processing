@@ -1,12 +1,15 @@
-headers = timespan.h wave.h
+headers = timespan.h wave.h cli.h
 
-main : main.o timespan.o 
-	$(CXX) -o $@ $^
+main : main.o timespan.o cli.o
+	$(CXX) -o $@ $^ -lsndfile
 
 timespan.o : timespan.cpp $(headers)
 	$(CXX) -c -o $@ $<
 
 main.o : main.cpp $(headers)
+	$(CXX) -c -o $@ $<
+
+cli.o : cli.cpp $(headers)
 	$(CXX) -c -o $@ $<
 
 clean : 
