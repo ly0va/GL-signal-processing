@@ -2,11 +2,11 @@
 
 This is a digital signal processing app for GlobalLogic C++ practice.
 
-It not meant to be very useful and still is a work in progress.
+It is not meant to be very useful and still is a work in progress.
 
 ## Installation
 
-*Dependencies:*
+**Dependencies:**
 
 - `libsndfile` for generating `.wav` files
 - `mpv` for playing `.wav` files
