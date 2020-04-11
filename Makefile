@@ -1,18 +1,27 @@
-headers = timespan.h wave.h cli.h
+# source, object and header files
+SRC := $(wildcard src/*.cpp)
+OBJ := $(SRC:src/%.cpp=obj/%.o)
+HEADER := $(wildcard include/*.h)
+# preprocessor flags
+CPPFLAGS := -Iinclude
+# compiler flags
+CXXFLAGS := -Wall -O2
+# additional linked libraries
+LDLIBS := -lsndfile
 
-main : main.o timespan.o cli.o
-	$(CXX) -o $@ $^ -lsndfile
+all : main
 
-timespan.o : timespan.cpp $(headers)
-	$(CXX) -c -o $@ $<
+main : $(OBJ)
+	$(CXX) $(LDLIBS) -o $@ $^
 
-main.o : main.cpp $(headers)
-	$(CXX) -c -o $@ $<
+obj/%.o : src/%.cpp $(HEADER) | obj
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
 
-cli.o : cli.cpp $(headers)
-	$(CXX) -c -o $@ $<
+obj :
+	mkdir $@
 
 clean : 
-	rm -f *.o main
+	$(RM) -r obj
 
-.PHONY : clean
+.PHONY : clean main
+

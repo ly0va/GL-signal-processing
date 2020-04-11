@@ -11,6 +11,7 @@ static const char *HELP = R"(COMMANDS:
     help        - show this help
     show        - show the timespan graph (uses graph.py)
     play        - plays the timespan (requires mpv)
+    quit        - quit the program
 )";
 
 void get_args(std::vector<Parameter>& params) {
