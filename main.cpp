@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
             get_args(params);
             jump_table[cmd](params);
         } else if (cmd != "quit" && cmd != "") {
-            std::cerr << "Invalid command!";
+            std::cerr << "Invalid command!\n";
         }
     } while (cmd != "quit" && !std::cin.eof());
     return 0;

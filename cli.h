@@ -14,14 +14,14 @@ struct Parameter {
 };
 
 const Parameter SAMPLE_RATE{"44000", "sample_rate", "Sample rate(Hz)", ""};
-const Parameter FILENAME{"SIgnal.out", "filename", "File name", ""};
+const Parameter FILENAME{"signal.out", "filename", "File name", ""};
 const Parameter LENGTH{"1000", "length", "Length(ms)", ""};
 const Parameter AMP{"1.0", "amp", "Amplitude", ""};
 const Parameter FREQ{"440", "freq", "Frequency", ""};
 const Parameter PHASE{"0", "phase", "Phase shift", ""};
 const Parameter START{"0", "start", "Range start(ms)", ""};
 const Parameter FINISH{"1000", "finish", "Range finish(ms)", ""};
-const Parameter TYPE{"SIN", "type", "Wave type", ""};
+const Parameter TYPE{"sin", "type", "Wave type", ""};
 
 typedef const std::vector<Parameter>& ParamList;
 typedef std::unordered_map<std::string, std::function<void(ParamList)>> JumpTable;
