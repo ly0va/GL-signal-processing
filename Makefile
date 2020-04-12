@@ -23,5 +23,5 @@ obj :
 clean : 
 	$(RM) -r obj
 
-.PHONY : clean main
+.PHONY : clean all
 
