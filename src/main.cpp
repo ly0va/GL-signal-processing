@@ -4,11 +4,12 @@
 #include <stdexcept>
 
 int main(int argc, char** argv) {
+    std::cout << "Welcome! Type a command ('help' for help)\n";
     std::string cmd;
     std::vector<Parameter> params;
     JumpTable jump_table = create_table();
     do {
-        std::cout << "> ";
+        std::cout << ">> ";
         std::getline(std::cin, cmd);
         params = {};
         if (cmd == "new") {
