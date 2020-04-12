@@ -2,7 +2,10 @@
 #define _WAVE_H_
 
 #include <inttypes.h>
-#include <string>
+
+const char TRIANGLE = 't';
+const char SINE = 's';
+const char RECT = 'r';
 
 struct Wave {
     float amp;
@@ -10,7 +13,7 @@ struct Wave {
     int32_t freq;
     int32_t start;
     int32_t finish;
-    std::string type;
+    char type;
 };
 
 #endif

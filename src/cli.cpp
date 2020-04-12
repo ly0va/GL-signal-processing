@@ -4,7 +4,7 @@
 
 static const char *HELP = R"(COMMANDS:
     new         - create a new timespan
-    gen         - generate a new wave
+    gen         - generate a new wave (types are: sin, tri, rect)
     load        - load timespan from .csv file
     save-csv    - save timespan to .csv file
     save-wav    - save timespan to .wav file
@@ -38,7 +38,7 @@ JumpTable create_table() {
             stoi(params[2].value), 
             stoi(params[3].value), 
             stoi(params[4].value), 
-            params[5].value
+            params[5].value[0]
         };
         ts.apply(wave);
     };

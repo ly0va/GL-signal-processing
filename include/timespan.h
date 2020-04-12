@@ -11,8 +11,7 @@ private:
     int32_t millis;
 
 public:
-    Timespan() = default;
-    Timespan(int32_t millis, int32_t sample_rate);
+    Timespan(int32_t millis = 1000, int32_t sample_rate = 44000);
     Timespan(const char *filename, int32_t sample_rate);
     void save(const char *filename) const;
     void apply(const Wave& wave);

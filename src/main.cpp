@@ -1,6 +1,7 @@
 #include "timespan.h"
 #include "cli.h"
 #include <iostream>
+#include <stdexcept>
 
 int main(int argc, char** argv) {
     std::string cmd;
@@ -21,7 +22,11 @@ int main(int argc, char** argv) {
         }
         if (jump_table.count(cmd)) {
             get_args(params);
-            jump_table[cmd](params);
+            try {
+                jump_table[cmd](params);
+            } catch (std::invalid_argument& e) {
+                std::cerr << "Invalid parameter!\n";
+            }
         } else if (cmd != "quit" && cmd != "") {
             std::cerr << "Invalid command!\n";
         }

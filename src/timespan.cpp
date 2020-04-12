@@ -37,13 +37,13 @@ void Timespan::apply(const Wave& wave) {
     int32_t finish_ind = (wave.finish / 1000.0) * sample_rate;
     for (int sample = start_ind; sample < finish_ind; sample++) {
         float t = float(sample - start_ind) / sample_rate;
-        if (wave.type == "sin") {
+        if (wave.type == SINE) {
             samples[sample] += wave.amp * 
                 sin(2 * M_PI * (wave.freq * t + wave.phase));
-        } else if (wave.type == "tri") {
+        } else if (wave.type == TRIANGLE) {
             samples[sample] += wave.amp * (2/M_PI) * 
                 asin(sin(2 * M_PI * (wave.freq * t + wave.phase)));
-        } else if (wave.type == "sq") {
+        } else if (wave.type == RECT) {
             samples[sample] += wave.amp *
                 (sin(2 * M_PI * (wave.freq * t + wave.phase)) < 0 ? -1 : 1);
         }
@@ -60,7 +60,7 @@ void Timespan::saveWAV(const char *filename) const {
     sfinfo.samplerate = sample_rate;
     sfinfo.format = SF_FORMAT_WAV | SF_FORMAT_FLOAT;
     SNDFILE *outfile = sf_open(filename, SFM_WRITE, &sfinfo);
-    sf_count_t cnt = sf_write_float(outfile, &samples[0], samples.size()) ;
+    sf_write_float(outfile, &samples[0], samples.size()) ;
     sf_write_sync(outfile);
     sf_close(outfile);
 }
