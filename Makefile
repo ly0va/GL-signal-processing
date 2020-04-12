@@ -7,7 +7,7 @@ CPPFLAGS := -Iinclude
 # compiler flags
 CXXFLAGS := -Wall -O2
 # additional linked libraries
-LDLIBS := -lsndfile
+LDLIBS := -lsndfile -lSDL2
 
 all : main
 

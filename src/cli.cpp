@@ -1,5 +1,6 @@
 #include "timespan.h"
 #include "cli.h"
+#include "player.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -68,7 +69,7 @@ JumpTable create_table() {
     };
     jump_table["play"] = [&](ParamList params) {
         ts.saveWAV("/tmp/_.wav");
-        system("mpv /tmp/_.wav");
+        playWAV("/tmp/_.wav");
     };
     return jump_table;
 }
