@@ -21,7 +21,7 @@ obj :
 	mkdir $@
 
 clean : 
-	$(RM) -r obj
+	$(RM) -r obj main
 
 .PHONY : clean all
 

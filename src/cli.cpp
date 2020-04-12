@@ -16,6 +16,9 @@ static const char *HELP = R"(COMMANDS:
     quit        - quit the program
 )";
 
+static const char *TEMP_CSV = "/tmp/temp-signal.csv";
+static const char *TEMP_WAV = "/tmp/temp-signal.wav";
+
 void get_args(std::vector<Parameter>& params) {
     std::string value;
     for (auto& param: params) {
@@ -50,16 +53,14 @@ JumpTable create_table() {
         ts.apply(wave);
     };
     jump_table["save-csv"] = [&](ParamList params) {
-        ts.save(params[0].value.c_str());
+        ts.saveCSV(params[0].value.c_str());
     };
     jump_table["load"] = [&](ParamList params) {
         ts = Timespan(params[0].value.c_str(), stoi(params[1].value));
     };
     jump_table["show"] = [&](ParamList params) {
-        ts.save("/tmp/_.csv");
-        std::string graph_cmd = "./graph.py /tmp/_.csv " 
-                + std::to_string(ts.get_sample_rate());
-        system(graph_cmd.c_str());
+        ts.saveCSV(TEMP_CSV);
+        ts.show(TEMP_CSV);
     };
     jump_table["help"] = [&](ParamList params) {
         std::cout << HELP;
@@ -68,8 +69,8 @@ JumpTable create_table() {
         ts.saveWAV(params[0].value.c_str());
     };
     jump_table["play"] = [&](ParamList params) {
-        ts.saveWAV("/tmp/_.wav");
-        playWAV("/tmp/_.wav");
+        ts.saveWAV(TEMP_WAV);
+        playWAV(TEMP_WAV);
     };
     return jump_table;
 }

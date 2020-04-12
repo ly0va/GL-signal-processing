@@ -11,8 +11,11 @@ Timespan::Timespan(int32_t millis, int32_t sample_rate) {
     samples.resize(n_samples);
 }
 
-void Timespan::save(const char *filename) const {
+void Timespan::saveCSV(const char *filename) const {
     std::ofstream output(filename);
+    if (!output.is_open()) {
+        throw std::runtime_error("Unable to open the file");
+    }
     for (float sample: samples) {
         output << sample << '\n';
     }
@@ -21,6 +24,9 @@ void Timespan::save(const char *filename) const {
 
 Timespan::Timespan(const char *filename, int32_t sample_rate) {
     std::ifstream input(filename);
+    if (!input.is_open()) {
+        throw std::runtime_error("Unable to open the file");
+    }
     float sample;
     while (input >> sample) {
         samples.push_back(sample);
@@ -50,8 +56,11 @@ void Timespan::apply(const Wave& wave) {
     }
 }
 
-int32_t Timespan::get_sample_rate() const {
-    return sample_rate;
+void Timespan::show(const char *filename) const {
+    std::string graph_cmd = "python3 graph.py ";
+    graph_cmd += filename;
+    graph_cmd += " " + std::to_string(sample_rate);
+    system(graph_cmd.c_str());
 }
 
 void Timespan::saveWAV(const char *filename) const {
@@ -60,6 +69,9 @@ void Timespan::saveWAV(const char *filename) const {
     sfinfo.samplerate = sample_rate;
     sfinfo.format = SF_FORMAT_WAV | SF_FORMAT_FLOAT;
     SNDFILE *outfile = sf_open(filename, SFM_WRITE, &sfinfo);
+    if (outfile == NULL) {
+        throw std::runtime_error("Unable to open the file");
+    }
     sf_write_float(outfile, &samples[0], samples.size()) ;
     sf_write_sync(outfile);
     sf_close(outfile);
