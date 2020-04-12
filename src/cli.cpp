@@ -1,6 +1,7 @@
 #include "timespan.h"
 #include "cli.h"
 #include <iostream>
+#include <stdexcept>
 
 static const char *HELP = R"(COMMANDS:
     new         - create a new timespan
@@ -32,6 +33,10 @@ JumpTable create_table() {
         ts = Timespan(stoi(params[0].value), stoi(params[1].value));
     };
     jump_table["gen"] = [&](ParamList params) {
+        char type = params[5].value[0];
+        if (type != 's' && type != 'r' && type != 't') {
+            throw std::invalid_argument("Invalid wave type");
+        }
         Wave wave{
             stof(params[0].value), 
             stof(params[1].value), 

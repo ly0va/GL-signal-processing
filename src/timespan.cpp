@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cmath>
 #include <sndfile.h>
+#include <stdexcept>
 
 Timespan::Timespan(int32_t millis, int32_t sample_rate) {
     this->millis = millis;
@@ -11,7 +12,6 @@ Timespan::Timespan(int32_t millis, int32_t sample_rate) {
 }
 
 void Timespan::save(const char *filename) const {
-    // TODO: issue a warning to cerr if overriding existing file
     std::ofstream output(filename);
     for (float sample: samples) {
         output << sample << '\n';
@@ -20,8 +20,6 @@ void Timespan::save(const char *filename) const {
 }
 
 Timespan::Timespan(const char *filename, int32_t sample_rate) {
-    // TODO: issue an error/warning if filename don't exist
-    // or incorrect format
     std::ifstream input(filename);
     float sample;
     while (input >> sample) {
@@ -32,7 +30,9 @@ Timespan::Timespan(const char *filename, int32_t sample_rate) {
 }
 
 void Timespan::apply(const Wave& wave) {
-    if (wave.finish > millis) return; // FIXME
+    if (wave.finish > millis || wave.start < 0) {
+        throw std::invalid_argument("Wave goes beyond the timespan");
+    }
     int32_t start_ind = (wave.start / 1000.0) * sample_rate;
     int32_t finish_ind = (wave.finish / 1000.0) * sample_rate;
     for (int sample = start_ind; sample < finish_ind; sample++) {
