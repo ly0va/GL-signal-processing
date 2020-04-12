@@ -16,12 +16,13 @@ static const char *HELP = R"(COMMANDS:
 )";
 
 void get_args(std::vector<Parameter>& params) {
+    std::string value;
     for (auto& param: params) {
         std::cout << param.prompt << " [" 
-             << param.default_value << "]: ";
-        std::getline(std::cin, param.value);
-        if (param.value == "\n" || param.value == "") {
-            param.value = param.default_value;
+                  << param.value /* default value */ << "]: ";
+        std::getline(std::cin, value);
+        if (value != "") {
+            param.value = value;
         }
     }
 }

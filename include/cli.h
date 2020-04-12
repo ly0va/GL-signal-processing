@@ -7,21 +7,19 @@
 #include <string>
 
 struct Parameter {
-    std::string default_value;
-    std::string name;
-    std::string prompt;
     std::string value;
+    std::string prompt;
 };
 
-const Parameter SAMPLE_RATE{"44000", "sample_rate", "Sample rate(Hz)", ""};
-const Parameter FILENAME{"signal.out", "filename", "File name", ""};
-const Parameter LENGTH{"1000", "length", "Length(ms)", ""};
-const Parameter AMP{"1.0", "amp", "Amplitude", ""};
-const Parameter FREQ{"440", "freq", "Frequency", ""};
-const Parameter PHASE{"0", "phase", "Phase shift", ""};
-const Parameter START{"0", "start", "Range start(ms)", ""};
-const Parameter FINISH{"1000", "finish", "Range finish(ms)", ""};
-const Parameter TYPE{"sin", "type", "Wave type", ""};
+const Parameter SAMPLE_RATE{"44000", "Sample rate(Hz)"};
+const Parameter FILENAME{"signal.out", "File name"};
+const Parameter LENGTH{"1000", "Length(ms)"};
+const Parameter AMP{"1.0", "Amplitude"};
+const Parameter FREQ{"440", "Frequency(Hz)"};
+const Parameter PHASE{"0", "Phase shift"};
+const Parameter START{"0", "Range start(ms)"};
+const Parameter FINISH{"1000", "Range finish(ms)"};
+const Parameter TYPE{"sin", "Wave type"};
 
 typedef const std::vector<Parameter>& ParamList;
 typedef std::unordered_map<std::string, std::function<void(ParamList)>> JumpTable;

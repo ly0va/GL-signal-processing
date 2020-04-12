@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
             try {
                 jump_table[cmd](params);
             } catch (std::invalid_argument& e) {
-                std::cerr << "Invalid parameter!\n";
+                std::cerr << "Invalid parameter: " << e.what() << '\n';
             }
         } else if (cmd != "quit" && cmd != "") {
             std::cerr << "Invalid command!\n";
