@@ -57,7 +57,7 @@ void Timespan::apply(const Wave& wave) {
 }
 
 void Timespan::show(const char *filename) const {
-    std::string graph_cmd = "python3 graph.py ";
+    std::string graph_cmd = "/usr/bin/python3 graph.py ";
     graph_cmd += filename;
     graph_cmd += " " + std::to_string(sample_rate);
     system(graph_cmd.c_str());
