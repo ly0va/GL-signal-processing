@@ -11,6 +11,7 @@ static const char *HELP = R"(COMMANDS:
     save-csv    - save timespan to .csv file
     save-wav    - save timespan to .wav file
     help        - show this help
+    info        - show info about current timespan
     show        - show the timespan graph (uses graph.py)
     play        - plays the timespan (requires mpv)
     quit        - quit the program
@@ -42,12 +43,15 @@ JumpTable create_table() {
         if (type != 's' && type != 'r' && type != 't') {
             throw std::invalid_argument("Invalid wave type");
         }
+        std::string finish = params[4].value;
         Wave wave{
             stof(params[0].value), 
             stof(params[1].value), 
             stoi(params[2].value), 
             stoi(params[3].value), 
-            stoi(params[4].value), 
+            finish == FINISH.value
+                ? ts.get_len()
+                : stoi(finish),
             params[5].value[0]
         };
         ts.apply(wave);
@@ -71,6 +75,11 @@ JumpTable create_table() {
     jump_table["play"] = [&](ParamList params) {
         ts.saveWAV(TEMP_WAV);
         playWAV(TEMP_WAV);
+    };
+    jump_table["info"] = [&](ParamList params) {
+        std::cout << "Current timespan info:\n"
+                  << "  Duration:    " << ts.get_len() << " ms\n"
+                  << "  Sample rate: " << ts.get_sample_rate() << " Hz\n";
     };
     return jump_table;
 }

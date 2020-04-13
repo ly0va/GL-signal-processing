@@ -18,7 +18,7 @@ const Parameter AMP{"1.0", "Amplitude"};
 const Parameter FREQ{"440", "Frequency(Hz)"};
 const Parameter PHASE{"0", "Phase shift"};
 const Parameter START{"0", "Range start(ms)"};
-const Parameter FINISH{"1000", "Range finish(ms)"};
+const Parameter FINISH{"end", "Range finish(ms)"};
 const Parameter TYPE{"sin", "Wave type"};
 
 typedef const std::vector<Parameter>& ParamList;

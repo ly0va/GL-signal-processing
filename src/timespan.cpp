@@ -4,10 +4,10 @@
 #include <sndfile.h>
 #include <stdexcept>
 
-Timespan::Timespan(int32_t millis, int32_t sample_rate) {
-    this->millis = millis;
+Timespan::Timespan(int32_t len, int32_t sample_rate) {
+    this->len = len;
     this->sample_rate = sample_rate;
-    uint32_t n_samples = (millis / 1000.0) * sample_rate;
+    uint32_t n_samples = (len / 1000.0) * sample_rate;
     samples.resize(n_samples);
 }
 
@@ -32,11 +32,11 @@ Timespan::Timespan(const char *filename, int32_t sample_rate) {
         samples.push_back(sample);
     }
     this->sample_rate = sample_rate;
-    millis = samples.size() * 1000 / sample_rate;
+    len = samples.size() * 1000 / sample_rate;
 }
 
 void Timespan::apply(const Wave& wave) {
-    if (wave.finish > millis || wave.start < 0) {
+    if (wave.finish > len || wave.start < 0) {
         throw std::invalid_argument("Wave goes beyond the timespan");
     }
     int32_t start_ind = (wave.start / 1000.0) * sample_rate;
@@ -77,3 +77,10 @@ void Timespan::saveWAV(const char *filename) const {
     sf_close(outfile);
 }
 
+int32_t Timespan::get_len() const {
+    return len;
+}
+
+int32_t Timespan::get_sample_rate() const {
+    return sample_rate;
+}
