@@ -15,7 +15,7 @@ LDLIBS := -lsndfile -lSDL2
 all : main
 
 main : $(OBJ)
-	$(CXX) $(LDLIBS) -o $@ $^
+	$(CXX) -o $@ $^ $(LDLIBS)
 
 obj/%.o : src/%.cpp $(HEADER) | obj
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
