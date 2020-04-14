@@ -1,7 +1,6 @@
 #include "timespan.h"
 #include <fstream>
 #include <cmath>
-#include <sndfile.h>
 #include <stdexcept>
 
 Timespan::Timespan(int32_t len, int32_t sample_rate) {
