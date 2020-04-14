@@ -63,20 +63,6 @@ void Timespan::show(const char *filename) const {
     system(graph_cmd.c_str());
 }
 
-void Timespan::saveWAV(const char *filename) const {
-    SF_INFO sfinfo ;
-    sfinfo.channels = 1;
-    sfinfo.samplerate = sample_rate;
-    sfinfo.format = SF_FORMAT_WAV | SF_FORMAT_FLOAT;
-    SNDFILE *outfile = sf_open(filename, SFM_WRITE, &sfinfo);
-    if (outfile == NULL) {
-        throw std::runtime_error("Unable to open the file");
-    }
-    sf_write_float(outfile, &samples[0], samples.size()) ;
-    sf_write_sync(outfile);
-    sf_close(outfile);
-}
-
 int32_t Timespan::get_len() const {
     return len;
 }

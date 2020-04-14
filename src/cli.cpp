@@ -1,6 +1,5 @@
 #include "timespan.h"
 #include "cli.h"
-#include "player.h"
 #include <iostream>
 #include <stdexcept>
 
@@ -9,16 +8,13 @@ static const char *HELP = R"(COMMANDS:
     gen         - generate a new wave (types are: sin, tri, rect)
     load        - load timespan from .csv file
     save-csv    - save timespan to .csv file
-    save-wav    - save timespan to .wav file
     help        - show this help
     info        - show info about current timespan
     show        - show the timespan graph (uses graph.py)
-    play        - plays the timespan (requires mpv)
     quit        - quit the program
 )";
 
 static const char *TEMP_CSV = "/tmp/temp-signal.csv";
-static const char *TEMP_WAV = "/tmp/temp-signal.wav";
 
 void get_args(std::vector<Parameter>& params) {
     std::string value;
@@ -68,13 +64,6 @@ JumpTable create_table() {
     };
     jump_table["help"] = [&](ParamList params) {
         std::cout << HELP;
-    };
-    jump_table["save-wav"] = [&](ParamList params) {
-        ts.saveWAV(params[0].value.c_str());
-    };
-    jump_table["play"] = [&](ParamList params) {
-        ts.saveWAV(TEMP_WAV);
-        playWAV(TEMP_WAV);
     };
     jump_table["info"] = [&](ParamList params) {
         std::cout << "Current timespan info:\n"
