@@ -21,7 +21,6 @@ The program is interactive, issue `help` command for details.
 - Generate a digital signal within a chosen timespan
 - Mix signals with different parameters
 - Signals may differ by amplitude, frequency, phase, and type (Sine, Triangle, Rectangle)
-- Save signals to `.csv` or `.wav` files
+- Save signals to `.csv` files
 - Load signals from `.csv` files
-- Play signals
 - Graph signals
